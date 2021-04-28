@@ -64,7 +64,7 @@ class basic_mdspan;
 
 template <
   class ElementType,
-  ptrdiff_t... Exts,
+  size_t... Exts,
   class LayoutPolicy,
   class AccessorPolicy
 >
@@ -89,7 +89,7 @@ private:
   struct __impl_impl<index_sequence<Idxs...>>
   {
     MDSPAN_FORCE_INLINE_FUNCTION static constexpr
-    ptrdiff_t __size(basic_mdspan const& __self) noexcept {
+    size_t __size(basic_mdspan const& __self) noexcept {
       return _MDSPAN_FOLD_TIMES_RIGHT((__self.__mapping_ref().extents().template __extent<Idxs>()), /* * ... * */ 1);
     }
     template <class ReferenceType, class IndexType, size_t N>
@@ -113,7 +113,7 @@ public:
   using mapping_type = typename layout_type::template mapping<extents_type>;
   using element_type = ElementType;
   using value_type = remove_cv_t<element_type>;
-  using index_type = ptrdiff_t;
+  using index_type = size_t;
   using difference_type = ptrdiff_t;
   using pointer = typename accessor_type::pointer;
   using reference = typename accessor_type::reference;
@@ -201,7 +201,7 @@ public:
   MDSPAN_INLINE_FUNCTION_DEFAULTED _MDSPAN_CONSTEXPR_14_DEFAULTED basic_mdspan& operator=(basic_mdspan&&) noexcept = default;
 
   MDSPAN_TEMPLATE_REQUIRES(
-    class OtherElementType, ptrdiff_t... OtherExtents, class OtherLayoutPolicy, class OtherAccessorPolicy,
+    class OtherElementType, size_t... OtherExtents, class OtherLayoutPolicy, class OtherAccessorPolicy,
     /* requires */ (
       _MDSPAN_TRAIT(is_assignable, mapping_type, typename OtherLayoutPolicy::template mapping<std::experimental::extents<OtherExtents...>>) &&
       _MDSPAN_TRAIT(is_assignable, accessor_type, OtherAccessorPolicy) &&
@@ -334,7 +334,7 @@ private:
 };
 
 
-template <class T, ptrdiff_t... Exts>
+template <class T, size_t... Exts>
 using mdspan = basic_mdspan<T, std::experimental::extents<Exts...>>;
 
 } // end namespace experimental

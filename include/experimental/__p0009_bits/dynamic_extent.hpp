@@ -50,7 +50,7 @@
 namespace std {
 namespace experimental {
 
-_MDSPAN_INLINE_VARIABLE constexpr ptrdiff_t dynamic_extent = -1;
+_MDSPAN_INLINE_VARIABLE constexpr size_t dynamic_extent = -1;
 
 } // end namespace experimental
 } // namespace std
